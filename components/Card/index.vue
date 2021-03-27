@@ -27,4 +27,8 @@
     overflow: hidden;
     border-radius: 20px;
   }
+
+  .vs-card-content.type-4 .vs-card__img img {
+    transform: none;
+  }
 </style>
