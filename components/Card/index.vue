@@ -22,13 +22,12 @@
 </template>
 
 <style>
-  .card .vs-card {
-    background: none;
-    overflow: hidden;
-    border-radius: 20px;
-  }
 
+/** Баг с карточкой в сафари */
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
   .vs-card-content.type-4 .vs-card__img img {
     transform: none;
   }
+}}
 </style>
