@@ -24,10 +24,10 @@ export default {
 <style scoped>
   .list {
     padding: 1rem;
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, 300px);
     gap: 20px;
   }
 </style>

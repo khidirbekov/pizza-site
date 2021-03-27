@@ -3,6 +3,8 @@
     class="container navbar"
     color="blue"
     v-model="active"
+    shadowScroll
+    centerCollapsed
     shadow
   >
     <template #left>
