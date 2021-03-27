@@ -24,5 +24,7 @@
 <style>
   .card .vs-card {
     background: none;
+    overflow: hidden;
+    border-radius: 20px;
   }
 </style>
