@@ -1,0 +1,16 @@
+:root {
+  --vs-theme-bg: #f4f7f8;
+}
+[vs-theme=dark] {
+  --vs-theme-bg: #18191c;
+  --vs-theme-color: #fff;
+}
+
+body {
+  background-color: var(--vs-theme-bg);
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
