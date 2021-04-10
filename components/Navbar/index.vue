@@ -2,26 +2,32 @@
   <vs-navbar
     class="container navbar"
     color="blue"
-    v-model="active"
     shadowScroll
     centerCollapsed
     shadow
+    notLine
   >
     <template #left>
-      <h1>Pizza</h1>
+      <img src="~/assets/logo.svg" class="logo" alt="logo" />
     </template>
-    <vs-navbar-item :active="active == 'guide'" id="guide">
-      Guide
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'docs'" id="docs">
-      Documents
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'components'" id="components">
-      Components
-    </vs-navbar-item>
-    <vs-navbar-item :active="active == 'license'" id="license">
-      license 
-    </vs-navbar-item>
+    <template #default>
+      <vs-navbar-item to="/" :active="$route.name === 'index'"> Главная </vs-navbar-item>
+      <vs-navbar-item to="/cart" :active="$route.name === 'cart'" class="cart-link">
+        Корзина
+        <no-ssr>
+          <vs-button
+            circle
+            icon
+            active
+            flat
+            class="cart-icon"
+            :style="amountCartItems ? 'opacity: 1' : 'opacity: 0'"
+          >
+            {{ amountCartItems }}
+          </vs-button>
+        </no-ssr>
+      </vs-navbar-item>
+    </template>
     <template #right>
       <vs-switch dark v-model="isDark" @change="changeTheme">
         <template #off>
@@ -37,28 +43,63 @@
 
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({
-  data() {
-    return {
-      active: 'guide',
-      isDark: false
-    }
-  },
-  methods: {
-    changeTheme() {
-      if (this.isDark) {
-        document.body.setAttribute('vs-theme', 'dark')
-      } else {
-        document.body.removeAttribute('vs-theme')
-      }
+import { Component } from 'nuxt-property-decorator'
+
+// import { extends } from '~/commitlint.config'
+@Component
+export default class Navbar extends Vue {
+  isDark: boolean = false
+
+  get amountCartItems() {
+    return this.$store.getters['app/getPizzas'].length
+  }
+
+  changeTheme() {
+    if (this.isDark) {
+      document.body.setAttribute('vs-theme', 'dark')
+    } else {
+      document.body.removeAttribute('vs-theme')
     }
   }
-})
+}
 </script>
 
 <style lang="postcss" scoped>
 .navbar {
   position: relative;
-  padding: .7rem;
+  padding: 0.7rem;
+}
+
+.logo {
+  width: 90px;
+}
+
+.cart-link {
+  position: relative;
+}
+
+.cart-icon {
+  position: absolute;
+  top: 1px;
+  right: -30px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0.1rem 0.3rem;
+}
+.vs-navbar__item.active {
+  position: relative;
+}
+
+button.vs-navbar__item.active::after {
+  position: absolute;
+  bottom: -0.9rem;
+  display: block;
+  content: '';
+  width: 2rem;
+  border-radius: 20%;
+  height: 0.2rem;
+  background: rgb(var(--vs-text));
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>
