@@ -9,9 +9,7 @@ const state: AppState = {
 
 export const app: Module<AppState, unknown> = {
   namespaced: true,
-  state() {
-    return state
-  },
+  state: () => state,
   mutations,
   getters
 }

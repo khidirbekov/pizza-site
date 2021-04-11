@@ -3,5 +3,12 @@
     "env": {
       "VUE_APP_TARGET": "@pizza-backend-https"
     }
-  }
+  },
+  "builds": [
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {}
+    }
+  ]
 }

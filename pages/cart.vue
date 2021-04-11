@@ -47,9 +47,7 @@
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
 
-@Component({
-  middleware: 'cookies',
-})
+@Component
 export default class Cart extends Vue {
   fileUrl: string = process.env.baseURL + '/uploads/'
 

@@ -21,8 +21,7 @@ import { Context } from '@nuxt/types'
 @Component({
   components: {
     Card,
-  },
-  middleware: 'cookies'
+  }
 })
 export default class Index extends Vue {
   isOpen: boolean = false
