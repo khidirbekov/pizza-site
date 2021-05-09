@@ -6,8 +6,8 @@
           <vs-tr>
             <vs-th> Пицца </vs-th>
             <vs-th> Описание </vs-th>
-            <vs-th> Цена </vs-th>
-            <vs-th> Количество </vs-th>
+            <vs-th width='100'> Цена </vs-th>
+            <vs-th width='100'> Количество </vs-th>
             <vs-th> Действия </vs-th>
           </vs-tr>
         </template>
@@ -27,7 +27,7 @@
               <i class="bx bx-ruble"></i>
             </vs-td>
             <vs-td>
-              <vs-input @change="calcSum" type="number" v-model="tr.count" />
+              <vs-input class='count-input' @change="calcSum" type="number" v-model="tr.count" />
             </vs-td>
             <vs-td>
               <vs-button danger border @click="() => remove(tr.id)">
@@ -142,6 +142,7 @@ export default class Cart extends Vue {
 
   remove(id: number) {
     this.$store.commit('app/REMOVE_PIZZA', id)
+    this.calcSum()
   }
 
   calcSum() {
@@ -225,5 +226,15 @@ export default class Cart extends Vue {
 
 .vs-button--flat:focus {
   background: rgba(var(--vs-color), 0.15);
+}
+
+.vs-table__thead .vs-table__th {
+  width: 100px !important;
+}
+</style>
+
+<style>
+.count-input [class=vs-input] {
+  width: 100px;
 }
 </style>
