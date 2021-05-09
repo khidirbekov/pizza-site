@@ -1,5 +1,8 @@
 export interface AppState {
   pizzas: Pizza[]
+  cities: City[]
+  city: number
+  pizzerias: Pizzeria[]
 }
 
 interface BaseEntity {
@@ -18,4 +21,16 @@ export interface Pizza extends BaseEntity {
 export interface File extends BaseEntity {
   name: string
   path: string
+}
+
+export interface City extends BaseEntity {
+  name: string
+  latitude: string
+  longitude: string
+}
+
+export interface Pizzeria extends BaseEntity {
+  city: City
+  address: string
+  name: string
 }

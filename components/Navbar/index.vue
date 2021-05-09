@@ -29,6 +29,17 @@
       </vs-navbar-item>
     </template>
     <template #right>
+      <i class='bx bxs-city'></i>
+      <vs-select
+        @change="changeCity"
+        class="city-select"
+        v-model="city"
+        :key="citiesKey"
+      >
+        <vs-option v-for="c in cities" :key="c.id" :label="c.name" :value="c.id">
+          {{ c.name }}
+        </vs-option>
+      </vs-select>
       <vs-switch dark v-model="isDark" @change="changeTheme">
         <template #off>
           <i class="bx bxs-moon"></i>
@@ -44,14 +55,23 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'nuxt-property-decorator'
+import { City } from '~/models'
 
 // import { extends } from '~/commitlint.config'
 @Component
 export default class Navbar extends Vue {
   isDark: boolean = false
+  city: number = 1
+  cities: City[] = []
+  citiesKey: number = new Date().getTime()
 
   get amountCartItems() {
     return this.$store.getters['app/getPizzas'].length
+  }
+
+  changeCity(id: number) {
+    this.$store.commit('app/SET_ACTIVE_CITY', id)
+    this.$store.dispatch('app/fetchPizzerias')
   }
 
   changeTheme() {
@@ -61,6 +81,12 @@ export default class Navbar extends Vue {
       document.body.removeAttribute('vs-theme')
     }
   }
+
+  mounted() {
+    this.cities = this.$store.getters['app/getCities']
+    this.city = this.$store.getters['app/getActiveCity']
+    this.citiesKey = new Date().getTime()
+  }
 }
 </script>
 
@@ -68,6 +94,11 @@ export default class Navbar extends Vue {
 .navbar {
   position: relative;
   padding: 0.7rem;
+}
+
+.city-select {
+  margin-right: 8px;
+  margin-left: 5px;
 }
 
 .logo {

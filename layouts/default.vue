@@ -6,13 +6,19 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import Navbar from '~/components/Navbar/index.vue'
+import {
+  Component,
+  Vue,
+} from 'nuxt-property-decorator'
 import '~/styles/global.css'
 
-export default Vue.extend({
+@Component({
   components: {
     Navbar
   }
 })
+export default class Default extends Vue {
+
+}
 </script>

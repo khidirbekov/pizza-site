@@ -11,7 +11,6 @@
     </template>
     <template #interactions>
       <vs-button v-if="isInCart" @click="handlePizza" border :active="false" icon>
-        <!-- <i class='bx bxs-cart-minus' ></i> -->
         <i class='bx bx-minus-circle'></i>
       </vs-button>
       <vs-button v-else @click="handlePizza" gradient icon>
@@ -26,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator'
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { Pizza } from '~/models'
 import { isContain } from '@/utils/isContain'
 

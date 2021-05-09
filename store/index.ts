@@ -5,6 +5,11 @@ import { app } from './app'
 Vue.use(Vuex)
 
 const store: StoreOptions<any> = {
+  actions: {
+    async nuxtServerInit({ dispatch }) {
+      await dispatch('app/fetchCities')
+    }
+  },
   modules: {
     app
   }
