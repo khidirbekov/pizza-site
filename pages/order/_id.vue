@@ -1,7 +1,13 @@
 <template>
   <div class="content">
     <h2 class="title">Ваш заказ №{{ order.id }}</h2>
-    <vs-alert v-if="order.isConfirm" success gradient>
+    <vs-alert
+      v-if="order.isConfirm"
+      :warn="order.status === 'created'"
+      :primary="order.status === 'active'"
+      :success="order.status === 'completed'"
+      gradient
+    >
       <template #title> Заказ {{ PIZZA_STATUS[order.status] }} </template>
       {{ order.status === 'created' ? 'Скоро мы примем ваш заказ' : '' }}
       {{
@@ -14,7 +20,9 @@
       Введите код, который мы отправили по смс
       <vs-row>
         <vs-input v-model="code" placeholder="Код" />
-        <vs-button @click="() => confirmOrder(order.id)" style="padding: 2px"> Подтвердить </vs-button>
+        <vs-button @click="() => confirmOrder(order.id)" style="padding: 2px">
+          Подтвердить
+        </vs-button>
       </vs-row>
     </vs-alert>
 
@@ -101,7 +109,7 @@ export default class Order extends Vue {
         title: 'Ваш заказ подтвержден',
         text: 'Вы получите смс, как пицца будет готова',
       })
-    } catch (e) { 
+    } catch (e) {
       // @ts-ignore
       this.$vs.notification({
         flat: true,
@@ -111,7 +119,6 @@ export default class Order extends Vue {
         text: e.response.data.detail,
       })
     }
-
   }
 
   async asyncData({ route, error }: Context) {
