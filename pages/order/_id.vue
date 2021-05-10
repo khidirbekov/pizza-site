@@ -14,7 +14,7 @@
       Введите код, который мы отправили по смс
       <vs-row>
         <vs-input v-model="code" placeholder="Код" />
-        <vs-button style="padding: 2px"> Подтвердить </vs-button>
+        <vs-button @click="() => confirmOrder(order.id)" style="padding: 2px"> Подтвердить </vs-button>
       </vs-row>
     </vs-alert>
 
@@ -78,7 +78,7 @@ import dayjs from 'dayjs'
 import Hashkit from 'hashkit'
 import { Component } from 'nuxt-property-decorator'
 import { Context } from '@nuxt/types'
-import { getOrder } from '~/api'
+import { getOrder, putOrderConfirm } from '~/api'
 import { PIZZA_STATUS, CRYPT_KEY } from '@/constants'
 
 @Component
@@ -87,6 +87,32 @@ export default class Order extends Vue {
   baseURL = process.env.baseURL
   dayjs = dayjs
   code = ''
+
+  async confirmOrder(id: number) {
+    try {
+      const response = await putOrderConfirm(id, this.code)
+      // @ts-ignore
+      this.order = response
+      // @ts-ignore
+      this.$vs.notification({
+        flat: true,
+        color: 'success',
+        position: 'top-right',
+        title: 'Ваш заказ подтвержден',
+        text: 'Вы получите смс, как пицца будет готова',
+      })
+    } catch (e) { 
+      // @ts-ignore
+      this.$vs.notification({
+        flat: true,
+        color: 'danger',
+        position: 'top-right',
+        title: 'Произошла ошибка',
+        text: e.response.data.detail,
+      })
+    }
+
+  }
 
   async asyncData({ route, error }: Context) {
     const hashkit = new Hashkit(CRYPT_KEY)

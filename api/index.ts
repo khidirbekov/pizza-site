@@ -40,3 +40,10 @@ export async function getOrder(id: number) {
   const { data } = await request.get(`/api/orders/${id}`)
   return data
 }
+
+export async function putOrderConfirm(id: number, code: string) {
+  const { data } = await request.put(`/api/orders/${id}/confirm`, {
+    plainCode: code
+  })
+  return data
+} 
