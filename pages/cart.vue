@@ -164,10 +164,7 @@ export default class Cart extends Vue {
   }
 
   isValid() {
-    return Object.values(this.form).every(value => {
-      console.log(value)
-      return !!value
-    })
+    return Object.values(this.form).every(value => !!value)
   }
 
   async createOrder() {
