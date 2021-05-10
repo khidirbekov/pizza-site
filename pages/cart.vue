@@ -6,8 +6,8 @@
           <vs-tr>
             <vs-th> Пицца </vs-th>
             <vs-th> Описание </vs-th>
-            <vs-th width='100'> Цена </vs-th>
-            <vs-th width='100'> Количество </vs-th>
+            <vs-th width="100"> Цена </vs-th>
+            <vs-th width="100"> Количество </vs-th>
             <vs-th> Действия </vs-th>
           </vs-tr>
         </template>
@@ -27,7 +27,12 @@
               <i class="bx bx-ruble"></i>
             </vs-td>
             <vs-td>
-              <vs-input class='count-input' @change="calcSum" type="number" v-model="tr.count" />
+              <vs-input
+                class="count-input"
+                @change="calcSum"
+                type="number"
+                v-model="tr.count"
+              />
             </vs-td>
             <vs-td>
               <vs-button danger border @click="() => remove(tr.id)">
@@ -185,20 +190,20 @@ export default class Cart extends Vue {
       }
       const data = await postOrder(form)
       this.loading = false
-      this.isOpen = false
       const hashkit = new Hashkit(CRYPT_KEY)
       const cryptedId = hashkit.encode(data.id)
       this.$store.commit('app/RESET_CART')
       this.$router.push(`/order/${cryptedId}`)
+      this.isOpen = false
     } else {
       // @ts-ignore
       this.$vs.notification({
-            flat: true,
-            color: 'danger',
-            position: 'top-right',
-            title: 'Произошла ошибка',
-            text: 'Для оформления заказа заполните все поля'
-          })
+        flat: true,
+        color: 'danger',
+        position: 'top-right',
+        title: 'Произошла ошибка',
+        text: 'Для оформления заказа заполните все поля',
+      })
     }
   }
 }
@@ -234,7 +239,7 @@ export default class Cart extends Vue {
 </style>
 
 <style>
-.count-input [class=vs-input] {
+.count-input [class='vs-input'] {
   width: 100px;
 }
 </style>
